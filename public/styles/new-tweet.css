@@ -1,0 +1,12 @@
+
+.new-tweet {
+  border: red solid 2px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tweet-text {
+  flex-grow: 4;
+}
+
