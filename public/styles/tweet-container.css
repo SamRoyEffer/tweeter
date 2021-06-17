@@ -1,8 +1,8 @@
 .tweets-container {
-  border: 2px solid black;
   margin: 2em 0;
 }
 .text-area {
+  margin: 32px 0;
   border: 2px solid black;
 }
 article.text-area:hover {
