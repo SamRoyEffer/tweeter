@@ -1,0 +1,1 @@
+const numberOfCharacters = 140;

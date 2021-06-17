@@ -30,16 +30,30 @@ $(document).ready(function () {
     return html;
   };
 
+  $("#tweet-text").on("input", function () {
+    let characterCount = $(this).val().length;
+    if (characterCount > 140) {
+      alert("Too many Characters");
+    }
+  });
+
   // aJAX respose to post request
   $("#submit-tweet").on("submit", function (event) {
+    const tweetText = $("#tweet-text");
+    if (tweetText.val().length === 0) {
+      alert("Please input message");
+      return false;
+    }
     event.preventDefault();
     $.ajax({
       method: "POST",
       url: "/tweets",
       data: $(this).serialize(),
     })
+
       .then((response) => {
         loadTweets();
+        tweetText.val("");
         console.log("THIS IS RESPONSE", response);
       })
       .catch((err) => {
@@ -58,6 +72,7 @@ $(document).ready(function () {
         console.log("THIS IS LOADTWEET", tweets);
         renderTweets(tweets);
       })
+
       .catch((err) => {
         console.log(`err loading tweet: ${err}`);
       });
