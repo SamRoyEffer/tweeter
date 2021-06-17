@@ -1,38 +1,11 @@
-// Fake data taken from initial-tweets.json
-const data = [
-  {
-    user: {
-      name: "Newton",
-      avatars: "https://i.imgur.com/73hZDYK.png",
-      handle: "@SirIsaac",
-    },
-    content: {
-      text: "If I have seen further it is by standing on the shoulders of giants",
-    },
-    created_at: 1461116232227,
-  },
-  {
-    user: {
-      name: "Descartes",
-      avatars: "https://i.imgur.com/nlhLi3I.png",
-      handle: "@rd",
-    },
-    content: {
-      text: "Je pense , donc je suis",
-    },
-    created_at: 1461113959088,
-  },
-];
 $(document).ready(function () {
+  const URL = "http://localhost:8080";
+
   const renderTweets = function (tweets) {
-    console.log("render tweets");
-    // loops through tweets
     for (let tweet of tweets) {
       let createTweet = createTweetElement(tweet);
-      $(".tweets-container").append(createTweet);
+      $(".tweets-container").prepend(createTweet);
     }
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
   };
 
   const createTweetElement = function (tweet) {
@@ -57,5 +30,38 @@ $(document).ready(function () {
     return html;
   };
 
-  renderTweets(data);
+  // aJAX respose to post request
+  $("#submit-tweet").on("submit", function (event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: "/tweets",
+      data: $(this).serialize(),
+    })
+      .then((response) => {
+        loadTweets();
+        console.log("THIS IS RESPONSE", response);
+      })
+      .catch((err) => {
+        console.log(`err loading tweet: ${err}`);
+      });
+  });
+
+  const loadTweets = () => {
+    $.ajax({
+      method: "GET",
+      url: "/tweets",
+      dataType: "JSON",
+    })
+      .then((tweets) => {
+        //tweets coming from server
+        console.log("THIS IS LOADTWEET", tweets);
+        renderTweets(tweets);
+      })
+      .catch((err) => {
+        console.log(`err loading tweet: ${err}`);
+      });
+  };
+
+  loadTweets();
 });
