@@ -7,7 +7,11 @@ $(document).ready(function () {
       $(".tweets-container").prepend(createTweet);
     }
   };
-
+  const escape = function (str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
   const createTweetElement = function (tweet) {
     const html = `<article class="text-area">
     <div class="top-tweet-box">
@@ -17,9 +21,9 @@ $(document).ready(function () {
     </div>
     <div class="handle">${tweet.user.handle}</div>
   </div>
-  <div class="text-box"> ${tweet.content.text}</div>
+  <div class="text-box">${escape(tweet.content.text)}</div>
  
-  <footer class="footer"><div>${tweet.created_at}</div>
+  <footer class="footer"><div>${timeago.format(tweet.created_at)}</div>
     <div class="small-buttons">
     <i class="fas fa-flag"></i>
     <i class="fas fa-retweet"></i>
