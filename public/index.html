@@ -68,6 +68,9 @@
         <!-- <h2>Compose Tweet</h2> -->
         <form id="submit-tweet" action="/tweets/" method="POST">
           <!-- <label for="tweet-text">What are you humming about?</label> -->
+          <div id="error-container">
+            <p class="error-message"></p>
+          </div>
           <textarea
             placeholder="What are you humming about?"
             name="text"
@@ -88,7 +91,7 @@
               <div class="handle">@SirIsaac</div>
             </div>
             <div class="text-box"> If I have seen further it is by standing on the shoulders of giants</div>
-           
+           <div></div>
             <footer class="footer"><div>1623707758835</div>
               <div class="small-buttons">
               <i class="fas fa-flag"></i>

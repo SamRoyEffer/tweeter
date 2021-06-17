@@ -1,24 +1,21 @@
-
 .new-tweet {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding:2em;
+  padding: 2em;
 }
 
 #tweet-text {
- 
   margin: 0px;
   width: 100%;
   height: 44px;
-
 }
 #under-text-box {
   display: flex;
   justify-content: space-between;
 }
 #tweet-button {
-  background-color: #4056A1;
+  background-color: #4056a1;
   font-family: "Bungee";
   color: white;
 }
@@ -27,4 +24,11 @@ textarea {
   background-color: #f4f1ec;
   border: none;
   border-bottom: 2px black solid;
+}
+#error-container {
+  display: none;
+  border: aquamarine 2px solid;
+  justify-content: center;
+  color: orangered;
+  text-align: center;
 }

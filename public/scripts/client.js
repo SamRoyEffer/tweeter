@@ -34,35 +34,36 @@ $(document).ready(function () {
     return html;
   };
 
-  $("#tweet-text").on("input", function () {
-    let characterCount = $(this).val().length;
-    if (characterCount > 140) {
-      alert("Too many Characters");
-    }
-  });
-
   // aJAX respose to post request
   $("#submit-tweet").on("submit", function (event) {
-    const tweetText = $("#tweet-text");
-    if (tweetText.val().length === 0) {
-      alert("Please input message");
-      return false;
-    }
     event.preventDefault();
-    $.ajax({
-      method: "POST",
-      url: "/tweets",
-      data: $(this).serialize(),
-    })
+    const tweetText = $("#tweet-text");
+    const tweetVal = tweetText.val().length;
+    const isToLong = tweetVal > 140;
+    const isToShort = tweetVal === 0;
+    if (isToLong || isToShort) {
+      const message = isToLong ? "Too Many Characters" : "Please Input Tweet";
+      $(".error-message").text(message);
+      $("#error-container").slideDown("slow", function () {});
+      return false;
+    } else {
+      $("#error-container").slideUp("slow", function () {});
 
-      .then((response) => {
-        loadTweets();
-        tweetText.val("");
-        console.log("THIS IS RESPONSE", response);
+      $.ajax({
+        method: "POST",
+        url: "/tweets",
+        data: $(this).serialize(),
       })
-      .catch((err) => {
-        console.log(`err loading tweet: ${err}`);
-      });
+
+        .then((response) => {
+          loadTweets();
+          tweetText.val("");
+          console.log("THIS IS RESPONSE", response);
+        })
+        .catch((err) => {
+          console.log(`err loading tweet: ${err}`);
+        });
+    }
   });
 
   const loadTweets = () => {
