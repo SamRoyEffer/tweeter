@@ -32,3 +32,6 @@ textarea {
   color: orangered;
   text-align: center;
 }
+.text-box {
+  word-break: break-all;
+}
