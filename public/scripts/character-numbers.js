@@ -1,1 +1,0 @@
-const numberOfCharacters = 140;

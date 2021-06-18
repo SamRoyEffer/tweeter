@@ -7,11 +7,14 @@ $(document).ready(function () {
       $(".tweets-container").prepend(createTweet);
     }
   };
+
   const escape = function (str) {
+    //diverting possibly malicious text
     let div = document.createElement("div");
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
+
   const createTweetElement = function (tweet) {
     const html = `<article class="text-area">
     <div class="top-tweet-box">
@@ -41,13 +44,15 @@ $(document).ready(function () {
     const tweetVal = tweetText.val().length;
     const isToLong = tweetVal > 140;
     const isToShort = tweetVal === 0;
+
     if (isToLong || isToShort) {
+      //providing errors if conditions are met
       const message = isToLong ? "Too Many Characters" : "Please Input Tweet";
       $(".error-message").text(message);
-      $("#error-container").slideDown("slow", function () {});
+      $("#error-container").slideDown("fast", function () {});
       return false;
     } else {
-      $("#error-container").slideUp("slow", function () {});
+      $("#error-container").slideUp("fast", function () {});
 
       $.ajax({
         method: "POST",
@@ -66,6 +71,7 @@ $(document).ready(function () {
     }
   });
 
+  // AJAX get request for newley created tweet
   const loadTweets = () => {
     $.ajax({
       method: "GET",

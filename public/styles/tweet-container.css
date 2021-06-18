@@ -22,7 +22,6 @@ article.text-area:hover {
 .top-tweet-box {
   display: flex;
   flex-direction: row;
-
   justify-content: space-between;
 }
 .avatar-image {
