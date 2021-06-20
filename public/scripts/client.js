@@ -2,6 +2,7 @@ $(document).ready(function () {
   const URL = "http://localhost:8080";
 
   const renderTweets = function (tweets) {
+    $(".tweets-container").empty();
     for (let tweet of tweets) {
       let createTweet = createTweetElement(tweet);
       $(".tweets-container").prepend(createTweet);
